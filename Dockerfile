@@ -1,12 +1,12 @@
 FROM openshift/origin-base
 
-MAINTAINER Vincent Behar
+MAINTAINER JY BIDE
 
 #LABEL io.k8s.description="Dashboard of resources from multiple OpenShift projects" \
 #      io.k8s.display-name="OpenShift Dashboard" \
 #      io.openshift.tags="openshift,dashboard"
 
-ENV PATH=/oc-tool/$PATH
+ENV PATH=/oc-tool/:$PATH
 
 #COPY . /go/src/github.com/vbehar/openshift-dashboard/
 
