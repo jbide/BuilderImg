@@ -10,6 +10,22 @@ ENV PATH=/oc-tool/:$PATH
 
 #COPY . /go/src/github.com/vbehar/openshift-dashboard/
 
+COPY requirements.txt /tmp
+
+RUN yum -y install ansible
+RUN yum -y install python python-pip python-setuptools python-passlib
+RUN yum -y install wget curl rsync vim jq
+
+#RUN yum -y install docker-ce
+#RUN usermod -aG docker $(whoami)
+#RUN systemctl enable docker.service
+
+RUN pip install --upgrade pip
+RUN pip install virtualenv
+
+RUN virtualenv py3
+RUN source ~/py3/bin/activate && pip install -r /tmp/requirements.txt
+
 ARG occlient="openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit"
 RUN wget https://github.com/openshift/origin/releases/download/v3.10.0/${occlient}.tar.gz
 RUN tar xvfz ${occlient}.tar.gz
