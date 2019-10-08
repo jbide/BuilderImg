@@ -1,4 +1,4 @@
-FROM openshift/origin-base
+FROM centos:7
 
 MAINTAINER JY BIDE
 
