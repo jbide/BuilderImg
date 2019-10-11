@@ -16,7 +16,9 @@ RUN yum -y install epel-release
 
 RUN yum -y install ansible
 RUN yum -y install python python-pip python-setuptools python-passlib
-RUN yum -y install wget curl rsync vim jq
+RUN yum -y install wget curl rsync zip unzip vim jq tree
+
+RUN yum -y install openssh-clients
 
 #RUN yum -y install docker-ce
 #RUN usermod -aG docker $(whoami)
@@ -35,6 +37,17 @@ RUN mv ${occlient} /oc-tool
 RUN chmod  777 -R /oc-tool
 RUN rm ${occlient}.tar.gz
 
-#EXPOSE 8080
+ARG terraform_version=0.12.10
+RUN wget https://releases.hashicorp.com/terraform/${terraform_version}/terraform_${terraform_version}_linux_amd64.zip
+RUN unzip ./terraform_${terraform_version}_linux_amd64.zip -d /usr/local/bin/
+
+ARG packer_version=1.4.4
+RUN wget https://releases.hashicorp.com/packer/${packer_version}/packer_${packer_version}_linux_amd64.zip
+RUN unzip ./packer_${packer_version}_linux_amd64.zip -d /usr/local/bin/
+
+
+EXPOSE 8080
+
+USER 1001
 
 CMD [ "cat" ]
